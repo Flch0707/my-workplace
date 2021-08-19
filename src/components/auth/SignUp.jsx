@@ -1,40 +1,25 @@
-import React, { useRef, useContext, useState } from 'react'
+import React, { useRef, useContext } from 'react'
 import { Form, Button, Card, Alert } from 'react-bootstrap'
-import { AuthContext } from '../../context/authCtx'
+import { AuthContext } from '../../contexts/authCtx/context'
 import { Link, useHistory } from 'react-router-dom'
-
+import { AUTHTYPE, ROUTEPATH } from '../../constants/constants'
 export default function () {
     const emailRef = useRef()
     const passwordRef = useRef()
     const passwordConfirmRef = useRef()
-    const [error, setError] = useState('')
-    const [loading, setLoading] = useState(false)
-    const { signUp, currentUser } = useContext(AuthContext)
+    const { signUp, state: { error, currentUser, loading } } = useContext(AuthContext)
     const history = useHistory()
-
-
-    const handleSignUp = async (e, AuthType) => {
+    const handleSubmit = async (e, authType) => {
         e.preventDefault()
-        setError('')
-        setLoading(true)
-        if (passwordConfirmRef.current.value !== passwordRef.current.value) {
-            setError('Passwords do not match')
-            setLoading(false)
-            return
-        }
-        try {
-            await signUp(AuthType, emailRef.current.value,
-                passwordRef.current.value)
-            setError('')
-            setLoading(false)
-            history.push('/')
-        }
-        catch (err) {
-            console.log(err)
-            setLoading(false)
-            setError(err.message)
-        }
+        await signUp({
+            authType: authType,
+            email: emailRef.current.value,
+            password: passwordRef.current.value,
+            passwordConfirm: passwordConfirmRef.current.value,
+            history: history
+        })
     }
+
 
     return (
         <div className="w-100" style={{ maxWidth: "400px" }}>
@@ -44,7 +29,7 @@ export default function () {
                     <h2 className="text-center mb-4">Sign Up</h2>
                     {error && <Alert variant="danger">{error}</Alert>}
                     {currentUser && currentUser.email}
-                    <Form onSubmit={e => handleSignUp(e, 'EMAIL')}>
+                    <Form onSubmit={e => handleSubmit(e, AUTHTYPE.email)}>
                         <Form.Group id="email">
                             <Form.Label className="mt-3">Email</Form.Label>
                             <Form.Control type="email" ref={emailRef} required></Form.Control>
@@ -62,13 +47,13 @@ export default function () {
                     <div className="w_100 text-center mt-3 mb-3 border-top border-bottom">
                         or
                     </div>
-                    <Button onClick={e => handleSignUp(e, 'GOOGLE')} className="w-100 btn-outline text-primary bg-white">
+                    <Button onClick={e => handleSubmit(e, AUTHTYPE.googleAuth)} className="w-100 btn-outline text-primary bg-white">
                         <img src="https://img.icons8.com/color/16/000000/google-logo.png" /> Signup Using Google
                     </Button>
                 </Card.Body>
             </Card>
             <div className="w_100 text-center mt-2">
-                Already have an account? <Link to="/login">Log In</Link>
+                Already have an account? <Link to={ROUTEPATH.login}>Log In</Link>
             </div>
         </div>
     )

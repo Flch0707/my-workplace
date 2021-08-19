@@ -1,34 +1,22 @@
-import React, { useRef, useContext, useState } from 'react'
+import React, { useRef, useContext } from 'react'
 import { Form, Button, Card, Alert } from 'react-bootstrap'
-import { AuthContext } from '../../context/authCtx'
+import { AuthContext } from '../../contexts/authCtx/context'
 import { Link, useHistory } from 'react-router-dom'
+import { AUTHTYPE, ROUTEPATH } from '../../constants/constants'
 function Login() {
     const emailRef = useRef()
     const passwordRef = useRef()
-    const [error, setError] = useState('')
-    const [loading, setLoading] = useState('')
-    const { login, currentUser } = useContext(AuthContext)
+    const { login, state: { error, currentUser, loading } } = useContext(AuthContext)
     const history = useHistory()
-
-
-    const handleLogin = async (e, AuthType) => {
+    const handleSubmit = async (e, authType) => {
         e.preventDefault()
-        setError('')
-        setLoading(true)
-        try {
-            await login(AuthType, emailRef.current.value,
-                passwordRef.current.value)
-            setError('')
-            setLoading(false)
-            history.push('/')
-        }
-        catch (err) {
-            console.log(err)
-            setLoading(false)
-            setError(err.message)
-        }
+        await login({
+            authType: authType,
+            email: emailRef.current.value,
+            password: passwordRef.current.value,
+            history: history
+        })
     }
-
     return (
         <div className="w-100" style={{ maxWidth: "400px" }}>
 
@@ -37,7 +25,7 @@ function Login() {
                     <h2 className="text-center mb-4">Login</h2>
                     {error && <Alert variant="danger">{error}</Alert>}
                     {currentUser && currentUser.email}
-                    <Form onSubmit={e => handleLogin(e, "EMAIL")}>
+                    <Form onSubmit={e => handleSubmit(e, AUTHTYPE.email)}>
                         <Form.Group id="email">
                             <Form.Label className="mt-3">Email</Form.Label>
                             <Form.Control type="email" ref={emailRef} required></Form.Control>
@@ -47,17 +35,20 @@ function Login() {
                             <Form.Control type="password" ref={passwordRef} required></Form.Control>
                         </Form.Group>
                         <Button disabled={loading} className="w-100 mt-3" type="submit">Login</Button>
+                        <div className="w_100 text-center mt-3">
+                            <Link to="/reset-password">Forgot password? </Link>
+                        </div>
                     </Form>
                     <div className="w_100 text-center mt-3 mb-3 border-top border-bottom">
                         or
                     </div>
-                    <Button onClick={e => handleLogin(e, "GOOGLE")} className="w-100 btn-outline text-primary bg-white">
+                    <Button onClick={e => handleSubmit(e, AUTHTYPE.googleAuth)} className="w-100 btn-outline text-primary bg-white">
                         <img src="https://img.icons8.com/color/16/000000/google-logo.png" /> Login Using Google
                     </Button>
                 </Card.Body>
             </Card>
             <div className="w_100 text-center mt-2">
-                Do not have an account yet? <Link to="/signup">Sign up</Link>
+                Do not have an account yet? <Link to={ROUTEPATH.signUp}>Sign up</Link>
             </div>
         </div>
     )
