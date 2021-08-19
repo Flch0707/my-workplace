@@ -1,11 +1,16 @@
-import React, { useContext } from 'react'
+import React, { useContext, useEffect } from 'react'
 import { Card, Button, Alert, Image } from 'react-bootstrap'
 import { AuthContext } from '../contexts/authCtx/context'
 import { Link, useHistory } from 'react-router-dom'
 import { ROUTEPATH } from '../constants/constants'
 function Dashboard() {
-    const { logout, state: { error, currentUser, loading } } = useContext(AuthContext)
+    const { logout, resetErrorsAndMessages, state: { error, currentUser, loading } } = useContext(AuthContext)
     const history = useHistory()
+
+    useEffect(() => {
+        resetErrorsAndMessages()
+    }, [])
+
     const handleSubmit = async () => {
         await logout({
             history: history

@@ -1,4 +1,4 @@
-import React, { useRef, useContext } from 'react'
+import React, { useRef, useContext, useEffect } from 'react'
 import { Form, Button, Card, Alert } from 'react-bootstrap'
 import { AuthContext } from '../../contexts/authCtx/context'
 import { Link, useHistory } from 'react-router-dom'
@@ -7,8 +7,13 @@ export default function () {
     const emailRef = useRef()
     const passwordRef = useRef()
     const passwordConfirmRef = useRef()
-    const { signUp, state: { error, currentUser, loading } } = useContext(AuthContext)
+    const { signUp, resetErrorsAndMessages, state: { error, currentUser, loading } } = useContext(AuthContext)
     const history = useHistory()
+
+    useEffect(() => {
+        resetErrorsAndMessages()
+    }, [])
+
     const handleSubmit = async (e, authType) => {
         e.preventDefault()
         await signUp({
@@ -19,7 +24,6 @@ export default function () {
             history: history
         })
     }
-
 
     return (
         <div className="w-100" style={{ maxWidth: "400px" }}>

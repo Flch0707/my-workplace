@@ -98,20 +98,17 @@ const AuthProvider = ({ children }) => {
             if (password !== passwordConfirm) {
                 throw new Error('Passwords do not match')
             }
+            await currentUser.updatePassword(password)
             if (email !== currentUser.email) {
                 await currentUser.updateEmail(email)
             }
             if (displayName !== currentUser.displayName) {
-                await currentUser.updateProfileInfo(displayName)
-            }
-            if (password !== currentUser.password) {
-                await currentUser.updatePassword(password)
+                await currentUser.updateProfile({ displayName })
             }
             dispatch(ACTION.successAuth(MESSAGE.profileUpdateSuccess))
         } catch (err) {
             dispatch(ACTION.failedAuth(err.message))
         }
-        currentUser.updateProfile({ displayName })
     }
 
     const authWithGoogle = async () => {
@@ -119,6 +116,10 @@ const AuthProvider = ({ children }) => {
         provider.addScope('profile');
         provider.addScope('email');
         return await firebase.auth().signInWithPopup(provider)
+    }
+
+    const resetErrorsAndMessages = () => {
+        dispatch(ACTION.reset())
     }
 
     useEffect(() => {
@@ -135,7 +136,8 @@ const AuthProvider = ({ children }) => {
                 login,
                 resetPassword,
                 updateProfileInfo,
-                logout
+                logout,
+                resetErrorsAndMessages
             }}>
             {children}
         </AuthContext.Provider>

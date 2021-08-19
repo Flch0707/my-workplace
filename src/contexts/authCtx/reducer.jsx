@@ -13,6 +13,7 @@ const authReducer = (state, { type, payload }) => {
             return {
                 ...state,
                 error: '',
+                message: payload,
                 loading: false
             }
         }
@@ -28,6 +29,14 @@ const authReducer = (state, { type, payload }) => {
                 ...state,
                 currentUser: payload,
                 userUpdated: true
+            }
+        }
+        case ACTION_TYPE.reset: {
+            return {
+                ...state,
+                error: '',
+                message: '',
+                loading: false
             }
         }
     }

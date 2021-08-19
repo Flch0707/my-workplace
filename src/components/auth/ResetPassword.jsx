@@ -1,4 +1,4 @@
-import React, { useRef, useContext } from 'react'
+import React, { useRef, useContext, useEffect } from 'react'
 import { Form, Button, Card, Alert } from 'react-bootstrap'
 import { ROUTEPATH } from '../../constants/constants'
 import { AuthContext } from '../../contexts/authCtx/context'
@@ -6,7 +6,13 @@ import { Link } from 'react-router-dom'
 
 const ResetPassword = () => {
     const emailRef = useRef()
-    const { resetPassword, state: { message, error, loading } } = useContext(AuthContext)
+    const { resetPassword, resetErrorsAndMessages, state: { message, error, loading } } = useContext(AuthContext)
+
+    useEffect(() => {
+        resetErrorsAndMessages()
+    }, [])
+
+
     const handleSubmit = async (e) => {
         e.preventDefault()
         await resetPassword(emailRef.current.value)

@@ -1,4 +1,4 @@
-import React, { useRef, useContext, useState } from 'react'
+import React, { useRef, useContext, useEffect } from 'react'
 import { Form, Button, Card, Alert } from 'react-bootstrap'
 import { AuthContext } from '../../contexts/authCtx/context'
 import { Link } from 'react-router-dom'
@@ -9,39 +9,21 @@ const UpdateProfile = () => {
     const passwordRef = useRef()
     const passwordConfirmRef = useRef()
     const displayNameRef = useRef()
-    const { updateProfileInfo, state: { currentUser, error, loading, message } } = useContext(AuthContext)
+    const { updateProfileInfo, resetErrorsAndMessages, state: { currentUser, error, loading, message } } = useContext(AuthContext)
+
+    useEffect(() => {
+        resetErrorsAndMessages()
+    }, [])
 
     const handleSubmit = (e) => {
         e.preventDefault()
         updateProfileInfo({
-            email: mailRef.current.value,
+            email: emailRef.current.value,
             password: passwordRef.current.value,
             passwordConfirm: passwordConfirmRef.current.value,
-            displayName: displayNameRef
+            displayName: displayNameRef.current.value
         })
     }
-    //     let pEmail, pProf, pPassword = null
-    //     if (passwordConfirmRef.current.value !== passwordRef.current.value) {
-    //         setError('Passwords do not match')
-    //         setLoading(false)
-    //         return
-    //     }
-    //     if (emailRef.current.value !== currentUser.email) {
-    //         pEmail = updateEmail(emailRef.current.value)
-    //     }
-    //     if (displayNameRef.current.value !== currentUser.displayName) {
-    //         pProf = updateProfileInfo(displayNameRef.current.value)
-    //     }
-    //     if (passwordRef.current.value !== currentUser.password) {
-    //         pPassword = updatePassword(passwordRef.current.value)
-    //     }
-    //     Promise.all([pEmail, pProf, pPassword]).then(() => {
-    //         setMessage('Profile updated successfully')
-    //     }).catch(err => {
-    //         console.log("err", err)
-    //         setError(err.message)
-    //     }).finally(() => setLoading(false))
-    // }
 
     return (
         <div className="w-100" style={{ maxWidth: "400px" }}>

@@ -1,4 +1,4 @@
-import React, { useRef, useContext } from 'react'
+import React, { useRef, useContext, useEffect } from 'react'
 import { Form, Button, Card, Alert } from 'react-bootstrap'
 import { AuthContext } from '../../contexts/authCtx/context'
 import { Link, useHistory } from 'react-router-dom'
@@ -6,8 +6,13 @@ import { AUTHTYPE, ROUTEPATH } from '../../constants/constants'
 function Login() {
     const emailRef = useRef()
     const passwordRef = useRef()
-    const { login, state: { error, currentUser, loading } } = useContext(AuthContext)
+    const { login, resetErrorsAndMessages, state: { error, currentUser, loading } } = useContext(AuthContext)
     const history = useHistory()
+
+    useEffect(() => {
+        resetErrorsAndMessages()
+    }, [])
+
     const handleSubmit = async (e, authType) => {
         e.preventDefault()
         await login({
