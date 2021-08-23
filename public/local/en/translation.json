@@ -1,0 +1,40 @@
+{
+    "global": {
+        "cancel": "Cancel",
+        "continue": "Continue",
+        "ok": "Ok",
+        "or": "Or",
+        "reset": "Reset",
+        "update": "Update"
+    },
+    "account": {
+        "title": "Compte",
+        "noAccountYet": "Do not have an account yet?",
+        "alreadyHave": "Already have an account?"
+    },
+    "password": {
+        "title": "Password",
+        "confirm": "Password confirmation",
+        "forgot": "Forgot Password?",
+        "reset": "Reset password"
+    },
+    "login": {
+        "title": "Log In",
+        "Message": "Login",
+        "loginWith": "Log In with {{provider}}"
+    },
+    "logout": {
+        "title": "Logout"
+    },
+    "profile": {
+        "email": "Email",
+        "title": "Profile",
+        "userName": "User Name",
+        "update": "Update profile"
+    },
+    "signUp": {
+        "title": "Sign up",
+        "message": "Sign up",
+        "signUpWith": "Sign up with {{provider}}"
+    }
+}

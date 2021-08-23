@@ -1,0 +1,40 @@
+{
+    "global": {
+        "cancel": "Annuler",
+        "continue": "Continuer",
+        "ok": "Ok",
+        "or": "Ou",
+        "reset": "Réinitialiser",
+        "update": "Mettre à jour"
+    },
+    "account": {
+        "title": "Compte",
+        "noAccountYet": "Vous n'avez pas encore de compte?",
+        "alreadyHave": "Vous avez déjà un compte ?"
+    },
+    "login": {
+        "title": "Se connecter",
+        "message": "Connectez-vous",
+        "loginWith": "Se connecter avec {{provider}}"
+    },
+    "logout": {
+        "title": "Déconnexion"
+    },
+    "password": {
+        "title": "Mot de passe",
+        "confirm": "Confirmation du mot de passe",
+        "forgot": "Mot de passe oublié?",
+        "reset": "Réinitialiser le mot de passe"
+    },
+    "profile": {
+        "title": "Profile",
+        "email": "E-mail",
+        "userName": "Pseudo",
+        "update": "Mettre à jour le profile"
+    },
+    "signUp": {
+        "title": "Créer un compte",
+        "message": "Créez un compte",
+        "signUpWith": "Créer un compte avec {{provider}}"
+    }
+}

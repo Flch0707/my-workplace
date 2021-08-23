@@ -1,5 +1,4 @@
-import React, { } from 'react'
-import { BrowserRouter as Router, Switch } from 'react-router-dom'
+import React, { Suspense } from 'react'
 import { ROUTEPATH } from '../constants/constants'
 import SignUp from './auth/SignUp'
 import Login from './auth/Login'
@@ -12,37 +11,35 @@ import { Container } from 'react-bootstrap'
 
 function App() {
   return (
-    <Container
-      style={{ minHeight: "100vh" }}
-      className="d-flex align-items-center justify-content-center">
-      <Router>
-        <Switch>
-          <PrivateRoute
-            exact
-            path={ROUTEPATH.dashboard}
-            component={Dashboard} />
-          <PrivateRoute
-            exact
-            path={ROUTEPATH.updateProfile}
-            component={UpdateProfile} />
-          <PublicRoute
-            exact
-            path={ROUTEPATH.signUp}
-            restricted={true}
-            component={SignUp} />
-          <PublicRoute
-            exact
-            path={ROUTEPATH.login}
-            restricted={true}
-            component={Login} />
-          <PublicRoute
-            exact
-            path={ROUTEPATH.resetPassword}
-            restricted={true}
-            component={ResetPassword} />
-        </Switch>
-      </Router>
-    </Container>
+    <Suspense fallback="loading">
+      <Container
+        style={{ minHeight: "100vh" }}
+        className="d-flex align-items-center justify-content-center">
+        <PrivateRoute
+          exact
+          path={ROUTEPATH.dashboard}
+          component={Dashboard} />
+        <PrivateRoute
+          exact
+          path={ROUTEPATH.updateProfile}
+          component={UpdateProfile} />
+        <PublicRoute
+          exact
+          path={ROUTEPATH.signUp}
+          restricted={true}
+          component={SignUp} />
+        <PublicRoute
+          exact
+          path={ROUTEPATH.login}
+          restricted={true}
+          component={Login} />
+        <PublicRoute
+          exact
+          path={ROUTEPATH.resetPassword}
+          restricted={true}
+          component={ResetPassword} />
+      </Container>
+    </Suspense>
   )
 }
 
