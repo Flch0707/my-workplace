@@ -1,8 +1,8 @@
 import React, { useRef, useContext, useEffect } from 'react'
 import { Form, Button, Card, Alert } from 'react-bootstrap'
-import { AuthContext } from '../../contexts/authCtx/context'
+import { AuthContext } from '../../../contexts/authContext'
 import { Link } from 'react-router-dom'
-import { ROUTEPATH } from '../../constants/constants'
+import { ROUTEPATH } from '../../../constants/constants'
 import { useTranslation } from 'react-i18next';
 
 const UpdateProfile = () => {
@@ -28,8 +28,7 @@ const UpdateProfile = () => {
     }
 
     return (
-        <div className="w-100" style={{ maxWidth: "400px" }}>
-
+        <>
             <Card>
                 <Card.Body>
                     <h2 className="text-center mb-4">{t("profile.update")}</h2>
@@ -59,7 +58,7 @@ const UpdateProfile = () => {
             <div className="w_100 text-center mt-2">
                 <Link to={ROUTEPATH.dashboard}>{t("global.cancel")}</Link>
             </div>
-        </div>
+        </>
     )
 }
 

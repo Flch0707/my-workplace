@@ -12,6 +12,11 @@
         "noAccountYet": "Vous n'avez pas encore de compte?",
         "alreadyHave": "Vous avez déjà un compte ?"
     },
+    "language": {
+        "title": "Langue",
+        "fr": "Francais",
+        "en": "Anglais"
+    },
     "login": {
         "title": "Se connecter",
         "message": "Connectez-vous",

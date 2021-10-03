@@ -1,8 +1,8 @@
 import React, { createContext, useEffect, useState, useReducer } from 'react';
-import { projectAuth as auth } from '../../../firebase'
-import { authReducer } from './reducer'
-import { ACTION } from './action'
-import { ROUTEPATH, AUTHTYPE, MESSAGE } from '../../constants/constants'
+import { projectAuth as auth } from '../../firebase'
+import { authReducer } from '../modules/auth/reducers/reducer'
+import { ACTION } from '../modules/auth/actions/action'
+import { ROUTEPATH, AUTHTYPE, MESSAGE, DEFAULT_USER_PHOTO_URL } from '../constants/constants'
 import firebase from 'firebase/app'
 //create context
 const AuthContext = createContext()
@@ -29,7 +29,11 @@ const AuthProvider = ({ children }) => {
                     if (!res) {
                         throw new Error('Could not complete sign-up')
                     }
-                    await res.user.updateProfile({ displayName: res.user.email.split('@')[0] })
+                    await res.user.updateProfile(
+                        {
+                            displayName: res.user.email.split('@')[0],
+                            photoURL: DEFAULT_USER_PHOTO_URL,
+                        })
                     dispatch(ACTION.successAuth())
                     history.push(ROUTEPATH.dashboard)
                 } catch (err) {

@@ -18,9 +18,14 @@
         "forgot": "Forgot Password?",
         "reset": "Reset password"
     },
+    "language": {
+        "title": "Language",
+        "fr": "French",
+        "en": "English"
+    },
     "login": {
         "title": "Log In",
-        "Message": "Login",
+        "message": "Login",
         "loginWith": "Log In with {{provider}}"
     },
     "logout": {

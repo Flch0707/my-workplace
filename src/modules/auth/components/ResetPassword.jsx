@@ -1,9 +1,11 @@
 import React, { useRef, useContext, useEffect } from 'react'
-import { Form, Button, Card, Alert } from 'react-bootstrap'
-import { ROUTEPATH } from '../../constants/constants'
-import { AuthContext } from '../../contexts/authCtx/context'
 import { Link } from 'react-router-dom'
 import { useTranslation } from 'react-i18next';
+import { AuthContext } from '../../../contexts/authContext'
+import { ROUTEPATH } from '../../../constants/constants'
+
+import { Form, Button, Card, Alert } from 'react-bootstrap'
+import AuthFooter from './AuthFooter'
 
 const ResetPassword = () => {
     const emailRef = useRef()
@@ -21,7 +23,7 @@ const ResetPassword = () => {
     }
 
     return (
-        <div className="w-100" style={{ maxWidth: "400px" }}>
+        <>
             <Card>
                 <Card.Body>
                     <h2 className="text-center mb-4">{t("password.reset")}</h2>
@@ -39,10 +41,12 @@ const ResetPassword = () => {
                     </Form>
                 </Card.Body>
             </Card>
-            <div className="w_100 text-center mt-2">
-                {t("account.noAccountYet")} <Link to={ROUTEPATH.signUp}>{t("signUp.message")}</Link>
-            </div>
-        </div>
+            <AuthFooter
+                message={t("account.noAccountYet")}
+                linkTo={ROUTEPATH.signUp}
+                label={t("signUp.message")}
+            ></AuthFooter>
+        </>
     )
 }
 

@@ -1,4 +1,4 @@
-import { ACTION_TYPE } from './action'
+import { ACTION_TYPE } from '../actions/action'
 // state reducer    
 const authReducer = (state, { type, payload }) => {
     switch (type) {

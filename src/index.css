@@ -1,0 +1,12 @@
+.flag-mini{
+    position: absolute;
+     margin-top: 15px;
+     margin-left: -12px;
+     border-radius: 50px;
+}
+.dropDown-singleDisplay{
+    position: absolute;
+    z-index: 1;
+    margin-top: 80vh;
+
+}
