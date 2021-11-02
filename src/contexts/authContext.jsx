@@ -125,7 +125,7 @@ const AuthProvider = ({ children }) => {
     const resetErrorsAndMessages = () => {
         dispatch(ACTION.reset())
     }
-
+    //use effect
     useEffect(() => {
         const unsubscribe = auth.onAuthStateChanged(user => {
             dispatch(ACTION.updateUser(user))
